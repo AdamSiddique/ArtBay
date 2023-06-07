@@ -61,23 +61,23 @@ for the app.
 
 - __Produce__:
     - __/produce__: Search page for all produce in the database
-    - __/add-produce__: Page where Artist users can add their produce (customers trying to submit will get an error)
-    - __/your-produce__: Page where Artists can view and manage their produce
-    - __/produce/restock/<pk>__: Page where Artists can restock a certain product
+    - __/add-produce__: Page where farmer users can add their produce (customers trying to submit will get an error)
+    - __/your-produce__: Page where farmers can view and manage their produce
+    - __/produce/restock/<pk>__: Page where farmers can restock a certain product
     - __/produce/buy/<pk>__: Page where customers get redirected to in order to buy a certain product
     - __/produce/your-orders__: Page where customers can view their orders
 
 ## Known backend issues / Intended features ⁉
 
-- There is no good differentiation between customers and Artists in the _current_user_ global variable
-- This results in some security issues when accessing links ment for Artists as customers and vice-versa (should be
+- There is no good differentiation between customers and farmers in the _current_user_ global variable
+- This results in some security issues when accessing links ment for farmers as customers and vice-versa (should be
   checked by the validation methods of the forms, but in the perfect scenario specific links should only be accessible
   by specific users)
-- Given the correct url, Artists may be able to update data on other Artists produce (not tested, but seems logical)
+- Given the correct url, farmers may be able to update data on other farmers produce (not tested, but seems logical)
 
 All of these issues can be solved with a bit of extra work on the design of the app (specifically how the _current_user_
 is represented by the __User__ interface within __models.py__ such that it also knows whether the logged-in user is a
-Artist or a customer)
+farmer or a customer)
 
 ## Known frontend issues ☹
 

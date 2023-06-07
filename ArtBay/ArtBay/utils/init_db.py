@@ -29,10 +29,10 @@ if __name__ == '__main__':
         args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s)", i).decode('utf-8') for i in all_produce)
         cur.execute("INSERT INTO Produce (category, item, unit, variety, price) VALUES " + args_str)
 
-        # Dummy Artist 1 sells all produce
+        # Dummy farmer 1 sells all produce
         dummy_sales = [(1, i) for i in range(1, len(all_produce) + 1)]
         args_str = ','.join(cur.mogrify("(%s, %s)", i).decode('utf-8') for i in dummy_sales)
-        cur.execute("INSERT INTO Sell (Artist_pk, produce_pk) VALUES " + args_str)
+        cur.execute("INSERT INTO Sell (farmer_pk, produce_pk) VALUES " + args_str)
 
         conn.commit()
 

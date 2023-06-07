@@ -1,5 +1,5 @@
 from ArtBay import db_cursor, conn
-from ArtBay.models import User, Artist, Customer, Produce, Sell, ProduceOrder
+from ArtBay.models import User, Farmer, Customer, Produce, Sell, ProduceOrder
 
 
 # INSERT QUERIES
@@ -12,12 +12,12 @@ def insert_user(user: User):
     conn.commit()
 
 
-def insert_Artist(Artist: Artist):
+def insert_farmer(farmer: Farmer):
     sql = """
-    INSERT INTO Artists(user_name, full_name, password)
+    INSERT INTO Farmers(user_name, full_name, password)
     VALUES (%s, %s, %s)
     """
-    db_cursor.execute(sql, (Artist.user_name, Artist.full_name, Artist.password))
+    db_cursor.execute(sql, (farmer.user_name, farmer.full_name, farmer.password))
     conn.commit()
 
 
@@ -48,21 +48,21 @@ def insert_produce(produce: Produce):
 
 def insert_sell(sell: Sell):
     sql = """
-    INSERT INTO Sell(Artist_pk, produce_pk)
+    INSERT INTO Sell(farmer_pk, produce_pk)
     VALUES (%s, %s)
     """
-    db_cursor.execute(sql, (sell.Artist_pk, sell.produce_pk,))
+    db_cursor.execute(sql, (sell.farmer_pk, sell.produce_pk,))
     conn.commit()
 
 
 def insert_produce_order(order: ProduceOrder):
     sql = """
-    INSERT INTO ProduceOrder(produce_pk, Artist_pk, customer_pk)
+    INSERT INTO ProduceOrder(produce_pk, farmer_pk, customer_pk)
     VALUES (%s, %s, %s)
     """
     db_cursor.execute(sql, (
         order.produce_pk,
-        order.Artist_pk,
+        order.farmer_pk,
         order.customer_pk,
     ))
     conn.commit()
@@ -79,18 +79,18 @@ def get_user_by_pk(pk):
     return user
 
 
-def get_Artist_by_pk(pk):
+def get_farmer_by_pk(pk):
     sql = """
-    SELECT * FROM Artists
+    SELECT * FROM Farmers
     WHERE pk = %s
     """
     db_cursor.execute(sql, (pk,))
-    Artist = Artist(db_cursor.fetchone()) if db_cursor.rowcount > 0 else None
-    return Artist
+    farmer = Farmer(db_cursor.fetchone()) if db_cursor.rowcount > 0 else None
+    return farmer
 
 
 def get_produce_by_filters(category=None, item=None, variety=None,
-                           Artist_pk=None, Artist_name=None, price=None):
+                           farmer_pk=None, farmer_name=None, price=None):
     sql = """
     SELECT * FROM vw_produce
     WHERE
@@ -102,10 +102,10 @@ def get_produce_by_filters(category=None, item=None, variety=None,
         conditionals.append(f"item='{item}'")
     if variety:
         conditionals.append(f"variety = '{variety}'")
-    if Artist_pk:
-        conditionals.append(f"Artist_pk = '{Artist_pk}'")
-    if Artist_name:
-        conditionals.append(f"Artist_name LIKE '%{Artist_name}%'")
+    if farmer_pk:
+        conditionals.append(f"farmer_pk = '{farmer_pk}'")
+    if farmer_name:
+        conditionals.append(f"farmer_name LIKE '%{farmer_name}%'")
     if price:
         conditionals.append(f"price <= {price}")
 
@@ -136,10 +136,10 @@ def get_produce_by_pk(pk):
     return produce
 
 
-def get_all_produce_by_Artist(pk):
+def get_all_produce_by_farmer(pk):
     sql = """
     SELECT * FROM vw_produce
-    WHERE Artist_pk = %s
+    WHERE farmer_pk = %s
     ORDER BY available DESC, price
     """
     db_cursor.execute(sql, (pk,))
@@ -159,7 +159,7 @@ def get_user_by_user_name(user_name):
 
 def get_all_produce():
     sql = """
-    SELECT produce_pk as pk, category, item, variety, unit, price, Artist_name, available, Artist_pk
+    SELECT produce_pk as pk, category, item, variety, unit, price, farmer_name, available, farmer_pk
     FROM vw_produce
     ORDER BY available DESC, price
     """
@@ -191,12 +191,12 @@ def get_orders_by_customer_pk(pk):
 
 
 # UPDATE QUERIES
-def update_sell(available, produce_pk, Artist_pk):
+def update_sell(available, produce_pk, farmer_pk):
     sql = """
     UPDATE Sell
     SET available = %s
     WHERE produce_pk = %s
-    AND Artist_pk = %s
+    AND farmer_pk = %s
     """
-    db_cursor.execute(sql, (available, produce_pk, Artist_pk))
+    db_cursor.execute(sql, (available, produce_pk, farmer_pk))
     conn.commit()

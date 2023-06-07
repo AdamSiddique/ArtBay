@@ -41,14 +41,14 @@ class Customer(User):
         super().__init__(user_data)
 
 
-class Artist(User):
+class Farmer(User):
     def __init__(self, user_data: Dict):
         super().__init__(user_data)
 
 
 if __name__ == '__main__':
     user_data = dict(full_name='a', user_name='b', password='c')
-    user = Artist(user_data)
+    user = Farmer(user_data)
     print(user)
 
 
@@ -63,15 +63,15 @@ class Produce(ModelMixin):
         self.price = produce_data.get('price')
         # From JOIN w/ Sell relation
         self.available = produce_data.get('available')
-        self.Artist_name = produce_data.get('Artist_name')
-        self.Artist_pk = produce_data.get('Artist_pk')
+        self.farmer_name = produce_data.get('farmer_name')
+        self.farmer_pk = produce_data.get('farmer_pk')
 
 
 class Sell(ModelMixin):
     def __init__(self, sell_data: Dict):
         super(Sell, self).__init__(sell_data)
         self.available = sell_data.get('available')
-        self.Artist_pk = sell_data.get('Artist_pk')
+        self.farmer_pk = sell_data.get('farmer_pk')
         self.produce_pk = sell_data.get('produce_pk')
 
 
@@ -80,5 +80,5 @@ class ProduceOrder(ModelMixin):
         super(ProduceOrder, self).__init__(produce_order_data)
         self.pk = produce_order_data.get('pk')
         self.customer_pk = produce_order_data.get('customer_pk')
-        self.Artist_pk = produce_order_data.get('Artist_pk')
+        self.farmer_pk = produce_order_data.get('farmer_pk')
         self.produce_pk = produce_order_data.get('produce_pk')

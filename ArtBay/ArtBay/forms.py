@@ -3,7 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, IntegerField, SelectField, FloatField
 from wtforms.validators import DataRequired, Length, ValidationError, NumberRange
 
-from ArtBay.queries import get_user_by_user_name, get_Artist_by_pk, get_customer_by_pk
+from ArtBay.queries import get_user_by_user_name, get_farmer_by_pk, get_customer_by_pk
 from ArtBay.utils.choices import ProduceItemChoices, ProduceCategoryChoices, UserTypeChoices, \
     ProduceVarietyChoices, ProduceUnitChoices
 
@@ -82,15 +82,15 @@ class AddProduceForm(FlaskForm):
                        choices=ProduceUnitChoices.choices())
     price = IntegerField('Price',
                          validators=[DataRequired(), NumberRange(min=0, max=100)])
-    Artist_pk = IntegerField('Artist',
+    farmer_pk = IntegerField('Farmer',
                              validators=[DataRequired()],
                              render_kw=dict(disabled='disabled'))
     submit = SubmitField('Add produce')
 
     def validate_price(self, field):
-        Artist = get_Artist_by_pk(self.Artist_pk.data)
-        if Artist is None:
-            raise ValidationError("You need to be a Artist to sell produce!")
+        farmer = get_farmer_by_pk(self.farmer_pk.data)
+        if farmer is None:
+            raise ValidationError("You need to be a farmer to sell produce!")
 
 
 class BuyProduceForm(FlaskForm):
