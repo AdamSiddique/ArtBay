@@ -1,7 +1,9 @@
-from flask import render_template, request, Blueprint
+import base64
+
+from flask import render_template, request, Blueprint, redirect, url_for
 from flask_login import login_required, current_user
 
-from ArtBay.forms import FilterArtForm, AddArtForm, BuyArtForm, RestockArtForm
+from ArtBay.forms import FilterArtForm, AddArtForm, BuyArtForm
 from ArtBay.models import Art as ArtModel, ArtOrder
 from ArtBay.queries import insert_art, get_art_by_pk, Sell, \
     insert_sell, get_all_art_by_artist, get_art_by_filters, insert_art_order, update_sell, \
@@ -18,12 +20,10 @@ def art():
     if request.method == 'POST':
         art = get_art_by_filters(medium=request.form.get('medium'),
                                          item=request.form.get('item'),
-                                         variety=request.form.get('variety'),
                                          artist_name=request.form.get('sold_by'),
                                          price=request.form.get('price'))
         title = f'Our {request.form.get("medium")}!'
-    return render_template('pages/art.html', art=art, form=form, title=title)
-
+    return render_template('pages/art.html', art=get_all_art(), form=form, title=title)
 
 @Art.route("/add-art", methods=['GET', 'POST'])
 @login_required
@@ -42,6 +42,8 @@ def add_art():
             new_art_pk = insert_art(art)
             sell = Sell(dict(artist_pk=current_user.pk, art_pk=new_art_pk, available=True))
             insert_sell(sell)
+            # Redirect to your_art after successful form submission
+            return redirect(url_for('Art.your_art'))
     return render_template('pages/add-art.html', form=form)
 
 
@@ -72,20 +74,8 @@ def buy_art(pk):
             update_sell(available=False,
                         art_pk=art.pk,
                         artist_pk=art.artist_pk)
+            return redirect(url_for('Art.your_orders'))
     return render_template('pages/buy-art.html', form=form, art=art)
-
-
-@Art.route('/art/restock/<pk>', methods=['GET', 'POST'])
-@login_required
-def restock_art(pk):
-    form = RestockArtForm()
-    art = get_art_by_pk(pk)
-    if request.method == 'POST':
-        if form.validate_on_submit():
-            update_sell(available=True,
-                        art_pk=art.pk,
-                        artist_pk=art.artist_pk)
-    return render_template('pages/restock-art.html', form=form, art=art)
 
 
 @Art.route('/art/your-orders')

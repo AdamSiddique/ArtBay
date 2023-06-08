@@ -15,7 +15,7 @@
     <div class="art">
     {% if art|length %}
         {% for product in art %}
-            {{ art_card(product=product, show_checkout=False, show_restock=True) }}
+            {{ art_card(product=product, show_checkout=False) }}
         {% endfor %}
     {% else %}
         <h3 class="text--gray">No art to show at the moment.</h3>

@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS Art(
     pk serial unique not null PRIMARY KEY,
     title varchar(30),
     medium varchar(30),
-    price float,
+    price int,
     descrip varchar(30),
     picture bytea
 );
@@ -42,7 +42,7 @@ DELETE FROM ArtOrder;
 
 CREATE OR REPLACE VIEW vw_art
 AS
-SELECT p.medium, p.price, s.available,
+SELECT p.title, p.medium, p.price, p.descrip, p.picture, s.available,
        p.pk as art_pk,
        f.full_name as artist_name,
        f.pk as artist_pk

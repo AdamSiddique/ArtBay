@@ -1,3 +1,5 @@
+import base64
+
 from ArtBay import db_cursor, conn
 from ArtBay.models import User, Artist, Customer, Art, Sell, ArtOrder
 
@@ -160,12 +162,17 @@ def get_user_by_user_name(user_name):
 
 def get_all_art():
     sql = """
-    SELECT art_pk as pk, medium, item, variety, unit, price, artist_name, available, artist_pk
+    SELECT art_pk as pk, title, medium, price, descrip, artist_name, available, picture, artist_pk
     FROM vw_art
-    ORDER BY available DESC, price
     """
-    db_cursor.execute(sql)
+    order = " ORDER BY price "
+    db_cursor.execute(sql + order)
     art = [Art(res) for res in db_cursor.fetchall()] if db_cursor.rowcount > 0 else []
+    # Convert to base64 to show on website
+    print(art)
+    for item in art:
+        item['picture'] = print(f"{item['picture']}")
+    print(art)
     return art
 
 

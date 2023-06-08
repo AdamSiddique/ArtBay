@@ -89,7 +89,3 @@ class BuyArtForm(FlaskForm):
         customer = get_customer_by_pk(current_user.pk)
         if not customer:
             raise ValidationError("You must be a customer in order to create orders.")
-
-
-class RestockArtForm(FlaskForm):
-    submit = SubmitField('Yes, restock it')

@@ -10,7 +10,7 @@
 {% block content %}
     <section class="form-wrapper">
         <h2 style="text-align: center">Are you sure you want to buy this art?</h2>
-        {{ art_card(product=art, show_checkout=False, show_restock=False) }}
+        {{ art_card(product=art, show_checkout=False) }}
         <form method="POST" action="">
             {{ form.hidden_tag() }}
 
