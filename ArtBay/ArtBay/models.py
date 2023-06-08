@@ -41,44 +41,44 @@ class Customer(User):
         super().__init__(user_data)
 
 
-class Farmer(User):
+class Artist(User):
     def __init__(self, user_data: Dict):
         super().__init__(user_data)
 
 
 if __name__ == '__main__':
     user_data = dict(full_name='a', user_name='b', password='c')
-    user = Farmer(user_data)
+    user = Artist(user_data)
     print(user)
 
 
-class Produce(ModelMixin):
-    def __init__(self, produce_data: Dict):
-        super(Produce, self).__init__(produce_data)
-        self.pk = produce_data.get('pk')
-        self.category = produce_data.get('category')
-        self.item = produce_data.get('item')
-        self.unit = produce_data.get('unit')
-        self.variety = produce_data.get('variety')
-        self.price = produce_data.get('price')
+class Art(ModelMixin):
+    def __init__(self, art_data: Dict):
+        super(Art, self).__init__(art_data)
+        self.pk = art_data.get('pk')
+        self.title = art_data.get('title')
+        self.medium = art_data.get('medium')
+        self.price = art_data.get('price')
+        self.descrip = art_data.get('descrip')
+        self.image = art_data.get('image')
         # From JOIN w/ Sell relation
-        self.available = produce_data.get('available')
-        self.farmer_name = produce_data.get('farmer_name')
-        self.farmer_pk = produce_data.get('farmer_pk')
+        self.available = art_data.get('available')
+        self.artist_name = art_data.get('artist_name')
+        self.artist_pk = art_data.get('artist_pk')
 
 
 class Sell(ModelMixin):
     def __init__(self, sell_data: Dict):
         super(Sell, self).__init__(sell_data)
         self.available = sell_data.get('available')
-        self.farmer_pk = sell_data.get('farmer_pk')
-        self.produce_pk = sell_data.get('produce_pk')
+        self.artist_pk = sell_data.get('artist_pk')
+        self.art_pk = sell_data.get('art_pk')
 
 
-class ProduceOrder(ModelMixin):
-    def __init__(self, produce_order_data: Dict):
-        super(ProduceOrder, self).__init__(produce_order_data)
-        self.pk = produce_order_data.get('pk')
-        self.customer_pk = produce_order_data.get('customer_pk')
-        self.farmer_pk = produce_order_data.get('farmer_pk')
-        self.produce_pk = produce_order_data.get('produce_pk')
+class ArtOrder(ModelMixin):
+    def __init__(self, art_order_data: Dict):
+        super(ArtOrder, self).__init__(art_order_data)
+        self.pk = art_order_data.get('pk')
+        self.customer_pk = art_order_data.get('customer_pk')
+        self.artist_pk = art_order_data.get('artist_pk')
+        self.art_pk = art_order_data.get('art_pk')

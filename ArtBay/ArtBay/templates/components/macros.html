@@ -1,5 +1,5 @@
 {% macro cta_button (class='') %}
-    <a class="btn {{ class }}" href="{{ url_for('Produce.produce') }}">
+    <a class="btn {{ class }}" href="{{ url_for('Art.art') }}">
         <span>
             <img src="{{ url_for('static', filename='images/icons/cart.svg') }}" alt="cart" class="icon">
             Start shopping
@@ -21,29 +21,19 @@
         {% for choice in choices %}
             <option value="{{ choice[0] }}">{{ choice[1] }}</option>
         {% endfor %}
-        {{ form.category.options }}
+        {{ form.medium.options }}
     </select>
 {% endmacro %}
 
 
-{% macro filter_produce_form (form=None, sold_by=True) %}
+{% macro filter_art_form (form=None, sold_by=True) %}
     <form method="POST">
         {{ form.hidden_tag() }}
 
         <div class="form--row">
             <div class="form-group">
-                {{ form.category.label }}
-                {{ form.category }}
-            </div>
-
-            <div class="form-group">
-                {{ form.item.label }}
-                {{ form.item }}
-            </div>
-
-            <div class="form-group">
-                {{ form.variety.label }}
-                {{ form.variety }}
+                {{ form.medium.label }}
+                {{ form.medium }}
             </div>
         </div>
 
@@ -61,39 +51,24 @@
             </div>
 
             {{ form.submit(class="btn") }}
-            <a href="{{ url_for('Produce.produce') }}" class="btn">Clear filters</a>
+            <a href="{{ url_for('Art.art') }}" class="btn">Clear filters</a>
         </div>
     </form>
 {% endmacro %}
 
 
-{% macro produce_card (product=None, show_checkout=True, show_restock=False, date=None) %}
+{% macro art_card (product=None, show_checkout=True, show_restock=False, date=None) %}
     <div class="card">
         <div class="card__info">
-            {% if date %}
-                <p>Date: {{ date }}</p>
-            {% endif %}
-            <p>Category: {{ product.category|format_data }}</p>
-            <p>Item: {{ product.item|format_data }}</p>
-            <p>Variety: {{ product.variety|format_data }}</p>
-            <p>Price: £{{ product.price }} / {{ product.unit }}</p>
-            {% if not date %}
-                <p>In stock: {{ product.available }}</p>
-                <p>Sold by: {{ product.farmer_name }}</p>
-            {% endif %}
-        </div>
-
-        <div class="card__action">
-            {% if show_checkout %}
-                {% if product.available %}
-                    <a href="{{ url_for('Produce.buy_produce', pk=product.produce_pk) }}">Buy</a>
-                {% endif %}
+            <p>Title: {{ product.title }}</p>
+            <p>Medium: {{ product.medium|format_data }}</p>
+            <p>Price: {{ product.price }}</p>
+            <p>Description: {{ product.descrip }}</p>
+            <p>Image: {{product.image}} </p>
+            {% if product.available %}
+                <a href="{{ url_for('Art.buy_art', pk=product.art_pk) }}">Buy</a>
             {% else %}
-                {% if show_restock %}
-                    {% if not product.available %}
-                        <a href="{{ url_for('Produce.restock_produce', pk=product.produce_pk) }}">Restock</a>
-                    {% endif %}
-                {% endif %}
+                <a style="color: crimson;">Sold</a>
             {% endif %}
         </div>
     </div>

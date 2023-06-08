@@ -22,11 +22,11 @@ db_cursor = conn.cursor(cursor_factory=RealDictCursor)
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
-login_manager.login_message_category = 'info'
+login_manager.login_message_medium = 'info'
 
 from ArtBay import filters
 from ArtBay.blueprints.Login.routes import Login
-from ArtBay.blueprints.Produce.routes import Produce
+from ArtBay.blueprints.Art.routes import Art
 
 app.register_blueprint(Login)
-app.register_blueprint(Produce)
+app.register_blueprint(Art)

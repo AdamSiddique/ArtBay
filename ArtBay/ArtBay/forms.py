@@ -1,11 +1,10 @@
 from flask_login import current_user
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, IntegerField, SelectField, FloatField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField, SelectField, FloatField, FileField
 from wtforms.validators import DataRequired, Length, ValidationError, NumberRange
-
-from ArtBay.queries import get_user_by_user_name, get_farmer_by_pk, get_customer_by_pk
-from ArtBay.utils.choices import ProduceItemChoices, ProduceCategoryChoices, UserTypeChoices, \
-    ProduceVarietyChoices, ProduceUnitChoices
+from flask_wtf.file import FileAllowed, FileRequired
+from ArtBay.queries import get_user_by_user_name, get_artist_by_pk, get_customer_by_pk
+from ArtBay.utils.choices import ArtMediumChoices, UserTypeChoices
 
 
 class UserLoginForm(FlaskForm):
@@ -53,13 +52,9 @@ class UserSignupForm(FlaskForm):
             raise ValidationError(f'Provided passwords do not match.')
 
 
-class FilterProduceForm(FlaskForm):
-    category = SelectField('Category',
-                           choices=ProduceCategoryChoices.choices())
-    item = SelectField('Item',
-                       choices=ProduceItemChoices.choices())
-    variety = SelectField('Variety',
-                          choices=ProduceVarietyChoices.choices())
+class FilterArtForm(FlaskForm):
+    medium = SelectField('Medium',
+                           choices=ArtMediumChoices.choices())
     sold_by = StringField('Sold by')
     price = FloatField('Price (lower than or equal to)',
                        validators=[NumberRange(min=0, max=100)])
@@ -67,33 +62,27 @@ class FilterProduceForm(FlaskForm):
     submit = SubmitField('Filter')
 
 
-class AddProduceForm(FlaskForm):
-    category = SelectField('Category',
+class AddArtForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    medium = SelectField('Medium',
                            validators=[DataRequired()],
-                           choices=ProduceCategoryChoices.choices())
-    item = SelectField('Item (Subcategory)',
-                       validators=[DataRequired()],
-                       choices=ProduceItemChoices.choices())
-    variety = SelectField('Variety',
-                          validators=[DataRequired()],
-                          choices=ProduceVarietyChoices.choices())
-    unit = SelectField('Unit',
-                       validators=[DataRequired()],
-                       choices=ProduceUnitChoices.choices())
+                           choices=ArtMediumChoices.choices())
     price = IntegerField('Price',
                          validators=[DataRequired(), NumberRange(min=0, max=100)])
-    farmer_pk = IntegerField('Farmer',
+    artist_pk = IntegerField('Artist',
                              validators=[DataRequired()],
                              render_kw=dict(disabled='disabled'))
-    submit = SubmitField('Add produce')
+    descrip = StringField('Description', validators=[DataRequired()])
+    image = FileField('Image File (must be .jpg)')
+    submit = SubmitField('Add art')
 
-    def validate_price(self, field):
-        farmer = get_farmer_by_pk(self.farmer_pk.data)
-        if farmer is None:
-            raise ValidationError("You need to be a farmer to sell produce!")
+    def validate_image(self, field):
+        artist = get_artist_by_pk(self.artist_pk.data)
+        if artist is None:
+            raise ValidationError("You need to be a artist to sell art!")
 
 
-class BuyProduceForm(FlaskForm):
+class BuyArtForm(FlaskForm):
     submit = SubmitField('Yes, buy it')
 
     def validate_submit(self, field):
@@ -102,5 +91,5 @@ class BuyProduceForm(FlaskForm):
             raise ValidationError("You must be a customer in order to create orders.")
 
 
-class RestockProduceForm(FlaskForm):
+class RestockArtForm(FlaskForm):
     submit = SubmitField('Yes, restock it')

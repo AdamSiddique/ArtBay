@@ -10,14 +10,15 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Your orders</h2>
+    <h2>View and manage your art</h2>
+    {{ filter_art_form(form=form, sold_by=False) }}
     <div class="art">
-    {% if orders|length %}
-        {% for order in orders %}
-            {{ art_card(product=order, show_checkout=False, show_restock=False, date=order.created_at) }}
+    {% if art|length %}
+        {% for product in art %}
+            {{ art_card(product=product, show_checkout=False, show_restock=True) }}
         {% endfor %}
     {% else %}
-        <h3 class="text--gray">Nothing to show!</h3>
+        <h3 class="text--gray">No art to show at the moment.</h3>
     {% endif %}
     </div>
 {% endblock %}

@@ -1,8 +1,6 @@
 import os
 import pandas as pd
 
-DATASET_PATH = '/Users/mikkelapollojul/Datalogi/DIS/Project/Artbay/ArtBay/dataset/archive/fruitvegprices-2017_2022.csv'
-
 
 def get_label_name(string):
     return string.replace("_", " ").capitalize()
@@ -22,16 +20,9 @@ class ModelChoices:
     def labels(self):
         return [l for l in self.__dict__.values()]
 
+ArtMediumChoices = ModelChoices(['painting', 'sculpture'])
 
-df = pd.read_csv(DATASET_PATH, sep=',')
-
-ProduceCategoryChoices = ModelChoices(df.category.unique())
-ProduceItemChoices = ModelChoices(df.item.unique())
-ProduceVarietyChoices = ModelChoices(df.variety.unique())
-ProduceUnitChoices = ModelChoices(df.unit.unique())
-
-UserTypeChoices = ModelChoices(['Farmer', 'Customer'])
+UserTypeChoices = ModelChoices(['Artist', 'Customer'])
 
 if __name__ == '__main__':
-    print(df.item.unique())
-    print(ProduceItemChoices.choices())
+    print(ArtItemChoices.choices())

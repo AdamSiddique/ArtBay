@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% from "components/macros.html" import form_errors %}
 
-{% block title %}Add produce{% endblock %}
+{% block title %}Add art{% endblock %}
 
 {% block css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='/css/login.css') }}">
@@ -9,43 +9,29 @@
 
 {% block content %}
     <section class="form-wrapper">
-        <h1>Add produce</h1>
+        <h1>Add art</h1>
         <form method="POST" action="">
             {{ form.hidden_tag() }}
 
             <div class="form-group" hidden>
-                {{ form.farmer_pk.label }}
-                {{ form.farmer_pk }}
+                {{ form.artist_pk.label }}
+                {{ form.artist_pk }}
 
-                {{ form_errors(form.farmer_pk.errors) }}
+                {{ form_errors(form.artist_pk.errors) }}
             </div>
 
             <div class="form-group">
-                {{ form.category.label }}
-                {{ form.category }}
+                {{ form.title.label }}
+                {{ form.title }}
 
-                {{ form_errors(form.category.errors) }}
+                {{ form_errors(form.title.errors) }}
             </div>
 
             <div class="form-group">
-                {{ form.item.label }}
-                {{ form.item }}
+                {{ form.medium.label }}
+                {{ form.medium }}
 
-                {{ form_errors(form.item.errors) }}
-            </div>
-
-            <div class="form-group">
-                {{ form.variety.label }}
-                {{ form.variety }}
-
-                {{ form_errors(form.variety.errors) }}
-            </div>
-
-            <div class="form-group">
-                {{ form.unit.label }}
-                {{ form.unit }}
-
-                {{ form_errors(form.unit.errors) }}
+                {{ form_errors(form.medium.errors) }}
             </div>
 
             <div class="form-group">
@@ -53,6 +39,20 @@
                 {{ form.price }}
 
                 {{ form_errors(form.price.errors) }}
+            </div>
+
+            <div class="form-group">
+                {{ form.descrip.label }}
+                {{ form.descrip }}
+
+                {{ form_errors(form.descrip.errors) }}
+            </div>
+
+            <div class="form-group">
+                {{ form.image.label }}
+                {{ form.image }}
+
+                {{ form_errors(form.image.errors) }}
             </div>
 
             <div class="form-group">
