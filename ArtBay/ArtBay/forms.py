@@ -79,7 +79,7 @@ class AddArtForm(FlaskForm):
     def validate_image(self, field):
         artist = get_artist_by_pk(self.artist_pk.data)
         if artist is None:
-            raise ValidationError("You need to be a artist to sell art!")
+            raise ValidationError("You need to be an artist to sell art!")
 
 
 class BuyArtForm(FlaskForm):
