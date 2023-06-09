@@ -65,7 +65,7 @@ class AddArtForm(FlaskForm):
                            validators=[DataRequired()],
                            choices=ArtMediumChoices.choices())
     price = IntegerField('Price',
-                         validators=[DataRequired(), NumberRange(min=0, max=100)])
+                         validators=[DataRequired(), NumberRange(min=0, max=1000000)])
     artist_pk = IntegerField('Artist',
                              validators=[DataRequired()],
                              render_kw=dict(disabled='disabled'))

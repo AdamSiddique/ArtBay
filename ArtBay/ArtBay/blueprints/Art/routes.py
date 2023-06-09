@@ -89,6 +89,4 @@ def your_orders():
 
 @Art.route("/create-stall", methods=['GET', 'POST'])
 def create_stall():
-    if current_user.has_stall:
-        return redirect(url_for(Art.add_art))
     return render_template('pages/create-stall.html')
