@@ -3,8 +3,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, IntegerField, SelectField, FloatField, FileField
 from wtforms.validators import DataRequired, Length, ValidationError, NumberRange
 from flask_wtf.file import FileAllowed, FileRequired
-from ArtBay.queries import get_user_by_user_name, get_artist_by_pk, get_customer_by_pk
-from ArtBay.utils.choices import ArtMediumChoices, UserTypeChoices
+from ArtBay.queries import get_user_by_user_name, get_user_by_pk
+from ArtBay.utils.choices import ArtMediumChoices
 
 
 class UserLoginForm(FlaskForm):
@@ -37,9 +37,6 @@ class UserSignupForm(FlaskForm):
     password_repeat = PasswordField('Repeat Password',
                                     validators=[DataRequired()],
                                     render_kw=dict(placeholder='Password'))
-    user_type = SelectField('User type',
-                            validators=[DataRequired()],
-                            choices=UserTypeChoices.choices())
     submit = SubmitField('Sign up')
 
     def validate_user_name(self, field):
@@ -76,16 +73,6 @@ class AddArtForm(FlaskForm):
     image = FileField('Image File (must be .jpg)')
     submit = SubmitField('Add art')
 
-    def validate_image(self, field):
-        artist = get_artist_by_pk(self.artist_pk.data)
-        if artist is None:
-            raise ValidationError("You need to be an artist to sell art!")
-
 
 class BuyArtForm(FlaskForm):
     submit = SubmitField('Yes, buy it')
-
-    def validate_submit(self, field):
-        customer = get_customer_by_pk(current_user.pk)
-        if not customer:
-            raise ValidationError("You must be a customer in order to create orders.")

@@ -34,21 +34,12 @@ class User(ModelUserMixin):
         self.full_name = user_data.get('full_name')
         self.user_name = user_data.get('user_name')
         self.password = user_data.get('password')
-
-
-class Customer(User):
-    def __init__(self, user_data: Dict):
-        super().__init__(user_data)
-
-
-class Artist(User):
-    def __init__(self, user_data: Dict):
-        super().__init__(user_data)
+        self.has_stall = user_data.get('has_stall')
 
 
 if __name__ == '__main__':
     user_data = dict(full_name='a', user_name='b', password='c')
-    user = Artist(user_data)
+    user = User(user_data)
     print(user)
 
 

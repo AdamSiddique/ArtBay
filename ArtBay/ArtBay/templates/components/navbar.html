@@ -4,8 +4,12 @@
             <a href="{{ url_for("Login.home") }}">Home</a>
             <a href="{{ url_for("Art.art") }}">All Art</a>
             {% if current_user.is_authenticated %}
+            {% if current_user.has_stall %}
             <a href="{{ url_for("Art.add_art") }}">Add Art</a>
             <a href="{{ url_for("Art.your_art") }}">Your Art</a>
+            {% else %}
+            <a href="{{ url_for("Art.create_stall") }}">Create stall</a>
+            {% endif %}
             <a href="{{ url_for("Art.your_orders") }}">Your Orders</a>
             {% endif %}
         </div>
