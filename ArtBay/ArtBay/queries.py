@@ -124,13 +124,13 @@ def get_user_by_user_name(user_name):
 
 def get_all_art():
     sql = """
-    SELECT art_pk as art_pk, title, medium, price, descrip, artist_name, available, picture, artist_pk
+    SELECT art_pk as title, medium, price, descrip, picture
     FROM vw_art
     """
     order = " ORDER BY price "
     db_cursor.execute(sql + order)
     art = [Art(res) for res in db_cursor.fetchall()] if db_cursor.rowcount > 0 else []
-    # Convert to base64 to show on website
+    print(art)
     return art
 
 

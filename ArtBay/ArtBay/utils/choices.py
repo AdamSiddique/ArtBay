@@ -2,6 +2,8 @@ import os
 import pandas as pd
 
 
+DATASET_PATH = '/Users/adamsiddique/Desktop/Artbay/ArtBay/dataset/archive/artworks.csv'
+
 def get_label_name(string):
     return string.replace("_", " ").capitalize()
 
@@ -21,6 +23,10 @@ class ModelChoices:
         return [l for l in self.__dict__.values()]
 
 ArtMediumChoices = ModelChoices(['painting', 'sculpture'])
+
+UserTypeChoices = ModelChoices(['Artist', 'Customer'])
+
+df = pd.read_csv(DATASET_PATH, sep=',', on_bad_lines='skip')
 
 if __name__ == '__main__':
     print(ArtItemChoices.choices())

@@ -2,10 +2,10 @@ DROP TABLE IF EXISTS Art CASCADE;
 
 CREATE TABLE IF NOT EXISTS Art(
     pk serial unique not null PRIMARY KEY,
-    title varchar(30),
+    title varchar(2000),
     medium varchar(30),
     price int,
-    descrip varchar(200),
+    descrip varchar(2000),
     picture varchar(2083)
 );
 
@@ -17,7 +17,7 @@ ON Art (medium);
 DROP TABLE IF EXISTS Sell;
 
 CREATE TABLE IF NOT EXISTS Sell(
-    artist_pk int not null REFERENCES Users(pk) ON DELETE CASCADE,
+    artist_pk int REFERENCES Users(pk) ON DELETE CASCADE,
     art_pk int not null REFERENCES Art(pk) ON DELETE CASCADE,
     available boolean default true,
     PRIMARY KEY (artist_pk, art_pk)

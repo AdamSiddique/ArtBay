@@ -10,11 +10,7 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Find specific art</h2>
-    <h3 class="text--gray">
-        Try filtering art by your whishes and see what you can find!
-    </h3>
-    {{ filter_art_form(form=form) }}
+    <h2>All art</h2>
     <div class="art">
         {% if art %}
             {% for product in art %}
@@ -22,7 +18,7 @@
             {% endfor %}
         {% else %}
             <h3 class="text--gray">
-                No products found for selected filters
+                There is currently no art.
             </h3>
         {% endif %}
     </div>
