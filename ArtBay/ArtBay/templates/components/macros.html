@@ -8,6 +8,15 @@
 {% endmacro %}
 
 
+{% macro stall_button (class='') %}
+    <a class="btn {{ class }}" href="{{ url_for('Art.add_art') }}">
+        <span>
+            Create stall
+        </span>
+    </a>
+{% endmacro %}
+
+
 {% macro form_errors (errors=[]) %}
     {% for error in errors %}
         <span class="text--red">{{ error }}</span>

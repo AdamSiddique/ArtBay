@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% from "components/macros.html" import stall_button %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/login.css') }}">
+{% endblock %}
+
+{% block content %}
+    <section class="form-wrapper">
+        <h1>Start selling your art!</h1>
+        <h3>Create a stall to make your art available for purchase.</h3>
+
+        <div class="form--row"
+             style="width: 80%; display: flex; justify-content: space-between; max-width: unset; margin:auto">
+            <button class="btn btn--tertiary text--gray" onclick="history.back()">No, go back</button>
+            {{ stall_button('btn--large') }}
+        </div>
+    </section>
+{% endblock %}

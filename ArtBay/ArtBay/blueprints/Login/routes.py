@@ -2,9 +2,8 @@ from flask import render_template, url_for, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user
 
 from ArtBay.forms import UserLoginForm, UserSignupForm
-from ArtBay.models import Artist, Customer
-from ArtBay.queries import get_user_by_user_name, insert_artist, insert_customer
-from ArtBay.utils.choices import UserTypeChoices
+from ArtBay.models import User
+from ArtBay.queries import get_user_by_user_name, insert_user
 
 Login = Blueprint('Login', __name__)
 
@@ -50,12 +49,7 @@ def signup():
             user_data = dict(full_name=form.full_name.data,
                              user_name=form.user_name.data,
                              password=form.password.data)
-            if form.user_type.data == UserTypeChoices.values()[0]:
-                artist = Artist(user_data)
-                insert_artist(artist)
-            elif form.user_type.data == UserTypeChoices.values()[1]:
-                customer = Customer(form.data)
-                insert_customer(customer)
+            insert_user( User(user_data) )
             user = get_user_by_user_name(form.user_name.data)
             if user:
                 login_user(user, remember=True)

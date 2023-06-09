@@ -7,7 +7,7 @@ from ArtBay.forms import FilterArtForm, AddArtForm, BuyArtForm
 from ArtBay.models import Art as ArtModel, ArtOrder
 from ArtBay.queries import insert_art, get_art_by_pk, Sell, \
     insert_sell, get_all_art_by_artist, get_art_by_filters, insert_art_order, update_sell, \
-    get_orders_by_customer_pk, get_all_art
+    get_orders_by_customer_pk, get_all_art, update_stall
 
 Art = Blueprint('Art', __name__)
 
@@ -28,6 +28,10 @@ def art():
 @Art.route("/add-art", methods=['GET', 'POST'])
 @login_required
 def add_art():
+    if not current_user.has_stall:
+        pk = current_user.pk
+        update_stall(has_stall=True,
+                     user_pk=pk)
     form = AddArtForm(data=dict(artist_pk=current_user.pk))
     if request.method == 'POST':
         if form.validate_on_submit():
@@ -82,3 +86,9 @@ def buy_art(pk):
 def your_orders():
     orders = get_orders_by_customer_pk(current_user.pk)
     return render_template('pages/your-orders.html', orders=orders)
+
+@Art.route("/create-stall", methods=['GET', 'POST'])
+def create_stall():
+    if current_user.has_stall:
+        return redirect(url_for(Art.add_art))
+    return render_template('pages/create-stall.html')

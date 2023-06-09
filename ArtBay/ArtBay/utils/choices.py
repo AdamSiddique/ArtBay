@@ -22,7 +22,5 @@ class ModelChoices:
 
 ArtMediumChoices = ModelChoices(['painting', 'sculpture'])
 
-UserTypeChoices = ModelChoices(['Artist', 'Customer'])
-
 if __name__ == '__main__':
     print(ArtItemChoices.choices())
