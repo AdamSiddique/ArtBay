@@ -24,8 +24,6 @@ class ModelChoices:
 
 ArtMediumChoices = ModelChoices(['painting', 'sculpture'])
 
-UserTypeChoices = ModelChoices(['Artist', 'Customer'])
-
 df = pd.read_csv(DATASET_PATH, sep=',', on_bad_lines='skip')
 
 if __name__ == '__main__':

@@ -124,7 +124,7 @@ def get_user_by_user_name(user_name):
 
 def get_all_art():
     sql = """
-    SELECT art_pk as title, medium, price, descrip, picture
+    SELECT art_pk as art_pk, title, medium, price, descrip, artist_name, available, picture, artist_pk
     FROM vw_art
     """
     order = " ORDER BY price "

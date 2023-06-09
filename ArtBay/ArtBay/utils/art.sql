@@ -17,7 +17,7 @@ ON Art (medium);
 DROP TABLE IF EXISTS Sell;
 
 CREATE TABLE IF NOT EXISTS Sell(
-    artist_pk int REFERENCES Users(pk) ON DELETE CASCADE,
+    artist_pk int not null REFERENCES Users(pk) ON DELETE CASCADE,
     art_pk int not null REFERENCES Art(pk) ON DELETE CASCADE,
     available boolean default true,
     PRIMARY KEY (artist_pk, art_pk)
