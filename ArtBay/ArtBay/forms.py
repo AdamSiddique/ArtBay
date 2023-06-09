@@ -73,7 +73,7 @@ class AddArtForm(FlaskForm):
                              validators=[DataRequired()],
                              render_kw=dict(disabled='disabled'))
     descrip = StringField('Description', validators=[DataRequired()])
-    image = FileField('Image File (must be .jpg)')
+    image = StringField('Image File (must be .jpg)', validators=[Length(min=2, max=2000)])
     submit = SubmitField('Add art')
 
     def validate_image(self, field):

@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS Art(
     title varchar(30),
     medium varchar(30),
     price int,
-    descrip varchar(30),
-    picture bytea
+    descrip varchar(200),
+    picture varchar(2083)
 );
 
 DELETE FROM Art;

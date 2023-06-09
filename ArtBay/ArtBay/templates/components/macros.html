@@ -60,7 +60,7 @@
 {% macro art_card (product=None, show_checkout=True, date=None) %}
     <div class="card">
         <div class="card__info">
-            <img src="data:image/png;base64, {{ product.picture }}" alt="Picture could not load" />
+            <img src="{{ product.picture }}" alt="Picture could not load" width="300" />
             <p>Title: {{ product.title  }}</p>
             <p>Medium: {{ product.medium|format_data }}</p>
             <p>Price: {{ product.price }}</p>
