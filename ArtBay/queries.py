@@ -128,7 +128,6 @@ def get_all_art():
     order = " ORDER BY price "
     db_cursor.execute(sql + order)
     art = [Art(res) for res in db_cursor.fetchall()] if db_cursor.rowcount > 0 else []
-    print(art)
     return art
 
 
