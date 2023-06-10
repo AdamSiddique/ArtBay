@@ -1,7 +1,6 @@
 
-# ArtBay
 
-  
+# ArtBay
 
 Source code for ArtBay, the online C2C site for buying and selling art.
 
@@ -12,16 +11,20 @@ ArtBay uses the following dataset: https://www.kaggle.com/datasets/momanyc/museu
 
 1. Modify the `ArtBay/.env` file to contain the correct credentials of a running PostgreSQL database.
 
-2. In `Artbay/utils/choices.py` modify the `DATABASE_PATH` to the absolute path of the artworks.csv dataset. The dataset can be found at `dataset/archive/artworks.csv`.
+> Note: The SECRET_KEY parameter must be non empty
 
-3. Navigate to `/Artbay/utils` and run `python init_db.py` using your local Python 3 installation. This will initialise the database with the values from the dataset.
+2. In `ArtBay/utils/choices.py` modify the `DATABASE_PATH` to the absolute path of the artworks.csv dataset. The dataset can be found at `dataset/archive/artworks.csv`.
+
+3. Navigate to `ArtBay/` and use pip to install the required modules e.g. with the command `pip3 install -r requirements.txt`.
+
+4. Navigate to `ArtBay/utils` and run `python init_db.py` using your local Python 3 installation. This will initialise the database with the values from the dataset.
 
 > Note: Currently only the first 100 artworks from the dataset are put into the database as the process takes a lot of time. This can be modified by changing the `MAX_NUM` variable in `init_db.py`
 
 
 ## Running the webserver
 
-1. Navigate into Artbay/
+1. Navigate into ArtBay/
 
 2. Start the webserver with: `flask run`
 
