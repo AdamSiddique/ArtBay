@@ -1,5 +1,3 @@
-import base64
-
 from ArtBay import db_cursor, conn
 from ArtBay.models import User, Art, Sell, ArtOrder
 
