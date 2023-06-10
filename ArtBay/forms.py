@@ -54,7 +54,7 @@ class FilterArtForm(FlaskForm):
                            choices=ArtMediumChoices.choices())
     sold_by = StringField('Sold by')
     price = FloatField('Price (lower than or equal to)',
-                       validators=[NumberRange(min=0, max=100)])
+                       validators=[NumberRange(min=0, max=1000000)])
 
     submit = SubmitField('Filter')
 
@@ -70,7 +70,7 @@ class AddArtForm(FlaskForm):
                              validators=[DataRequired()],
                              render_kw=dict(disabled='disabled'))
     descrip = StringField('Description', validators=[DataRequired()])
-    image = StringField('Image File (must be .jpg)', validators=[Length(min=0, max=2000)])
+    image = StringField('Image URL (optional)', validators=[Length(min=0, max=2000)])
     submit = SubmitField('Add art')
 
 
