@@ -54,9 +54,9 @@ if __name__ == '__main__':
                 cur.execute(sql_art, (
                     title,
                     'painting',
-                    randint(1,100),
+                    randint(1,100000),
                     descrip,
-                    '-',
+                    '',
                 ))
 
                 art_pk = cur.fetchone()[0]

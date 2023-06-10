@@ -23,7 +23,7 @@ def art():
                                          artist_name=request.form.get('sold_by'),
                                          price=request.form.get('price'))
         title = f'Our {request.form.get("medium")}!'
-    return render_template('pages/art.html', art=get_all_art(), form=form, title=title)
+    return render_template('pages/art.html', art=get_all_art(), form=form, title=title, current_user=current_user)
 
 @Art.route("/add-art", methods=['GET', 'POST'])
 @login_required

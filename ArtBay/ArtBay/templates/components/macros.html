@@ -66,18 +66,22 @@
 {% endmacro %}
 
 
-{% macro art_card (product=None, show_checkout=True, date=None) %}
+{% macro art_card (product=None, show_checkout=True, date=None, current_user=None) %}
     <div class="card">
         <div class="card__info">
-            <img src="{{ product.picture }}" alt="Picture could not load" width="300" />
+            {% if product.picture %}
+                <img src="{{ product.picture }}" alt="Picture could not load" width="300" />
+            {% endif %}
             <p>Title: {{ product.title  }}</p>
             <p>Medium: {{ product.medium|format_data }}</p>
-            <p>Price: {{ product.price }}</p>
+            <p>Price: {{ product.price }} DKK</p>
             <p>Description: {{ product.descrip  }}</p>
-            {% if product.available %}
-                <a href="{{ url_for('Art.buy_art', pk=product.art_pk) }}">Buy</a>
-            {% else %}
-                <a style="color: crimson;">Sold</a>
+            {% if current_user.is_authenticated %}
+                {% if product.available %}
+                    <a href="{{ url_for('Art.buy_art', pk=product.art_pk) }}">Buy</a>
+                {% else %}
+                    <a style="color: crimson;">Sold</a>
+                {% endif %}
             {% endif %}
         </div>
     </div>
