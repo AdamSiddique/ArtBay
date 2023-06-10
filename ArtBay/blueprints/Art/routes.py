@@ -1,5 +1,3 @@
-import base64
-
 from flask import render_template, request, Blueprint, redirect, url_for
 from flask_login import login_required, current_user
 
