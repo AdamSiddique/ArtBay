@@ -1,30 +1,43 @@
-# Artbay
 
-Source code for Artbay, the online ecommerce site for buying and selling art.
+# ArtBay
+
+  
+
+Source code for ArtBay, the online C2C site for buying and selling art.
+
 
 ## Initialising the Database
-1. Modify the Artbay/Artbay/.env file to the correct credentials of a running postgresql database.
 
-2. Run Artbay/Artbay/utils/init_db
+1. Modify the `ArtBay/.env` file to contain the correct credentials of a running PostgreSQL database.
+
+2. In `Artbay/utils/choices.py` modify the `DATABASE_PATH` to the absolute path of the artworks.csv dataset. The dataset can be found at `dataset/archive/artworks.csv`.
+
+3. Navigate to `/Artbay/utils` and run `python init_db.py` using your local Python 3 installation. This will initialise the database with the values from the dataset.
+
+> Note: Currently only the first 100 artworks from the dataset are put into the database as the process takes a lot of time. This can be modified by changing the `MAX_NUM` variable in `init_db.py`
+
 
 ## Running the webserver
 
-Navigate into Artbay/Artbay
+1. Navigate into Artbay/
 
-Use the command: flask.run
+2. Start the webserver with: `flask run`
 
-## Access the website
+  
+
+## Accessing the website
 
 To access the website go to http://127.0.0.1:5000 with your webbrowser.
 
-## Interact with the website
+## Interacting with the webpage
 
-To interact with the website you will first have to create som art listing, you can do this by first creating a user of type Artist by navigating to http://127.0.0.1:5000/signup or using the links on the webpage.
+This section will go through some of the features that the webpage has. 
 
-### Creating art listing
+### Creating a user
+To create a user click on `Sign Up` on the top right corner. Fill out the presented formula with your new login information and press on the button labelled `Sign Up`.
 
-To create an art listing navigate to http://127.0.0.1:5000/add-art and fill out the formula, your art pieces will now be displayed at http://127.0.0.1:5000/art.
+### Purchasing a art listing
+To purchase an art listing you will need to be logged in as a user. On the navigation bar click on the button labelled `All Art`. Next click on the green button labelled `Buy`, which is placed after the information pertaining to an art piece. You will be redirected to a confirmation page where you can confirm your purchase by clicking on `Yes, buy it`. All purchases by the currently logged in user can always be accessed by going to `Your Orders`.
 
-### Purchase art listing
-
-To purchase an art listing, create a user of type Customer and navigate to http://127.0.0.1:5000/art. Click on the purchase button below the art piece that you would like to purchase, you will be redirected to a confirmation page where you can press on "Yes, buy it", which will confirm your purchase and put the art piece on the customers' your orders page: http://127.0.0.1:5000/art/your-orders.
+### Creating a art listing
+To create an art listing you will need to be logged in as a user. Click on the `Create Stall` button on the navbar and confirm by clicking on the green `Create Stall` button. Fill in the information pertaining to the art piece that you would like to sell. An image can be added to the art listing by providing a url to the image. Lastly, click on the `Add Art` button. All art pieces by the currently logged in user can always be accessed by going to `Your Art`.
