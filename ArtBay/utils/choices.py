@@ -1,8 +1,9 @@
 import os
 import pandas as pd
 
-
-DATASET_PATH = '/Users/adamsiddique/Desktop/Artbay/ArtBay/dataset/archive/artworks.csv'
+absolute_path = os.path.dirname(__file__)
+relative_path = '../../dataset/archive/artworks.csv'
+DATASET_PATH = os.path.join(absolute_path, relative_path)
 
 def get_label_name(string):
     return string.replace("_", " ").capitalize()

@@ -3,11 +3,10 @@ import os
 from random import randint
 from dotenv import load_dotenv
 from choices import df
-import sys
-sys.path.append('../../')
-from ArtBay import db_cursor
 
-load_dotenv()
+absolute_path = os.path.dirname(__file__)
+
+load_dotenv(os.path.join(absolute_path, '../.env'))
 
 if __name__ == '__main__':
     conn = psycopg2.connect(
@@ -18,9 +17,9 @@ if __name__ == '__main__':
     )
     with conn.cursor() as cur:
         # Run users.sql
-        with open('users.sql') as db_file:
+        with open(os.path.join(absolute_path, 'users.sql')) as db_file:
             cur.execute(db_file.read())
-        with open('art.sql') as db_file:
+        with open(os.path.join(absolute_path, 'art.sql')) as db_file:
             cur.execute(db_file.read())
 
         user_sql = """
