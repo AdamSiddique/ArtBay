@@ -15,7 +15,7 @@ ArtBay uses the following dataset: https://www.kaggle.com/datasets/momanyc/museu
 
 2. Navigate to `ArtBay/` and use pip to install the required modules e.g. with the command `pip3 install -r requirements.txt`.
 
-3. Navigate to `ArtBay/utils` and run `python init_db.py` using your local Python 3 installation. This will initialise the database with the values from the dataset.
+3. Navigate to `ArtBay/utils/` and run `python init_db.py` using your local Python 3 installation. This will initialise the database with the values from the dataset.
 
 > Note: Currently only the first 100 artworks from the dataset are put into the database as the process takes a lot of time. This can be modified by changing the `MAX_NUM` variable in `init_db.py`
 
