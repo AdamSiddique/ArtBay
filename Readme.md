@@ -22,7 +22,7 @@ ArtBay uses the following dataset: https://www.kaggle.com/datasets/momanyc/museu
 
 ## Running the webserver
 
-1. Navigate into `/Artbay`
+1. Navigate into `Artbay/`
 
 2. Start the webserver with: `flask run`
 
